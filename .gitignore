@@ -1,0 +1,49 @@
+# Ignore Python-related files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ignore IDE/editor-specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignore build and distribution artifacts
+dist/
+build/
+*.egg-info/
+*.egg
+*.whl
+
+# Ignore log files
+*.log
+
+# Ignore frontend-specific files (if using Node.js or similar)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Ignore static assets that are generated dynamically
+/static/dist/
+/static/build/
+
+# Ignore any temporary files
+*.tmp
+*.bak
+*.swp
+*~
