@@ -22,10 +22,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mount static files (for frontend)
 app.mount("/static", StaticFiles(directory="../frontend/static", html=True), name="static")
 
-# Spotify OAuth2 credentials
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 REDIRECT_URI = os.getenv("REDIRECT_URI")
@@ -35,8 +33,7 @@ SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
 SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
 SPOTIFY_API_BASE_URL = "https://api.spotify.com/v1"
 
-# Scopes for Spotify API access
-SCOPE = "user-read-recently-played playlist-modify-public"
+SCOPE = "user-read-recently-played playlist-modify-public user-top-read"
 
 
 
@@ -78,19 +75,6 @@ async def callback(code: str):
         refresh_token = token_data.get("refresh_token")
         return {"access_token": access_token, "refresh_token": refresh_token}
 
-@app.get("/profile")
-async def get_profile(access_token: str):
-    # Fetch user profile using the access token
-    async with httpx.AsyncClient() as client:
-        response = await client.get(
-            f"{SPOTIFY_API_BASE_URL}/me",
-            headers={"Authorization": f"Bearer {access_token}"},
-        )
-        if response.status_code != 200:
-            raise HTTPException(status_code=400, detail="Failed to fetch profile")
-
-        return response.json()
-    
 @app.post("/refresh-token")
 async def refresh_token(refresh_token: str):
     async with httpx.AsyncClient() as client:
@@ -107,6 +91,36 @@ async def refresh_token(refresh_token: str):
             raise HTTPException(status_code=400, detail="Failed to refresh token")
         token_data = response.json()
         return {"access_token": token_data["access_token"]}
+    
+
+#http://localhost:8000/profile?access_token=
+@app.get("/profile")
+async def get_profile(access_token: str):
+    # Fetch user profile using the access token
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"{SPOTIFY_API_BASE_URL}/me",
+            headers={"Authorization": f"Bearer {access_token}"},
+        )
+        if response.status_code != 200:
+            raise HTTPException(status_code=400, detail="Failed to fetch profile")
+
+        return response.json()
+
+#http://localhost:8000/top-items?access_token=
+@app.get("/top-items")
+async def get_profile_top(access_token: str):
+    item = ""
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"{SPOTIFY_API_BASE_URL}/me/top/artists",
+            headers={"Authorization": f"Bearer {access_token}"},
+            params={"time_range": "medium_term", "limit": "10", "offset": "5"},
+        )
+        if response.status_code != 200:
+            print(response.text)
+            raise HTTPException(status_code=400, detail="Failed to fetch user top items")
+        return response.json()
 
 if __name__ == "__main__":
     import uvicorn
