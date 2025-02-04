@@ -107,10 +107,9 @@ async def get_profile(access_token: str):
 
         return response.json()
 
-#http://localhost:8000/top-items?access_token=
-@app.get("/top-items")
-async def get_profile_top(access_token: str):
-    item = ""
+#http://localhost:8000/top-items-artists?access_token=
+@app.get("/top-items-artists")
+async def get_profile_top_artists(access_token: str):
     async with httpx.AsyncClient() as client:
         response = await client.get(
             f"{SPOTIFY_API_BASE_URL}/me/top/artists",
@@ -121,6 +120,21 @@ async def get_profile_top(access_token: str):
             print(response.text)
             raise HTTPException(status_code=400, detail="Failed to fetch user top items")
         return response.json()
+
+#http://localhost:8000/top-items-tracks?access_token=
+@app.get("/top-items-tracks")
+async def get_profile_top_tracks(access_token: str):
+    async with httpx.AsyncClient() as client:
+        response = await client.get(
+            f"{SPOTIFY_API_BASE_URL}/me/top/tracks",
+            headers={"Authorization": f"Bearer {access_token}"},
+            params={"time_range": "medium_term", "limit": "10", "offset": "5"},
+        )
+        if response.status_code != 200:
+            print(response.text)
+            raise HTTPException(status_code=400, detail="Failed to fetch user top tracks")
+        return response.json()
+
 
 if __name__ == "__main__":
     import uvicorn
