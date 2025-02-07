@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from fastapi.responses import JSONResponse
 
 # Load environment variables
 load_dotenv()
@@ -73,7 +74,12 @@ async def callback(code: str):
         token_data = response.json()
         access_token = token_data["access_token"]
         refresh_token = token_data.get("refresh_token")
-        return {"access_token": access_token, "refresh_token": refresh_token}
+        redirect_url = "http://127.0.0.1:5500/frontend/static/home.html"
+        return RedirectResponse(
+            url=f"http://localhost:5500/static/home.html"
+                f"?access_token={token_data['access_token']}"
+                f"&refresh_token={token_data.get('refresh_token', '')}"
+        )
 
 @app.post("/refresh-token")
 async def refresh_token(refresh_token: str):
