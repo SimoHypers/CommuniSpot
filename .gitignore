@@ -47,3 +47,5 @@ yarn.lock
 *.bak
 *.swp
 *~
+
+*fonts

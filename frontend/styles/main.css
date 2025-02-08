@@ -6,33 +6,37 @@ Button: #29603b
 Dividers: #1c1c1c
 */
 
+@font-face{
+    font-family: 'CustomFont';
+    src: url('../assets/fonts/Skyscapers.ttf');
+}
+
 body{
     margin: 0;
-    background: #9fffcb;
-    color: black;
+    background: #121212;
+    color: #fafafa;
     font-family: 'poppins', sans-serif;
 }
 
 #login_button{
     font-size: 25px;
     font-weight: bold;
-    background-color: #004e64;
-    color: #7ae582;
+    background-color: #29603b;
+    color: #fafafa;
     border: none;
     width: 300px;
     height: 100px;
-    border-radius: 50px;
+    border-radius: 30px;
     display: block;
     margin: auto;
-    margin-top: 500px;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.2s ease-in-out;
 }
 
 #login_button:hover{
-    color: #b2ff9e;
-    background-color: black;
-    box-shadow: 5px 5px #b2ff9e;
+    color: #fafafa;
+    background-color: #4db870;
+    box-shadow: 0 5px 15px #193a24;
 }
 
 .login_a_tag{
@@ -41,6 +45,23 @@ body{
 
 .login_h1_tag{
     text-align: center;
+    font-size: 50px;
+    margin-top: -10px;
+}
+
+.highlight{
+    color: #68c189;
+    font-family: 'CustomFont', 'poppins', sans-serif;
+}
+
+.policy_text{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.underline{
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .header{
@@ -50,8 +71,9 @@ body{
     padding: 10px 20px;
 }
 
-.logo img{
+.logo p{
     height: 50px;
+    font-size: 35px;
     margin-left: 100px;
     margin-top: 6px;
 }
@@ -59,19 +81,18 @@ body{
 .login_button_header{
     font-size: 16px;
     font-weight: bold;
-    margin-right: 100px;
-    background-color: #004e64;
-    color: #7ae582;
+    background-color: #29603b;
+    color: #fafafa;
     border: none;
-    width: 125px;
-    height: 50px;
-    border-radius: 50px;
+    width: 100px;
+    height: 40px;
+    border-radius: 30px;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .login_button_header:hover{
-    color: #b2ff9e;
-    background-color: black;
-    box-shadow: 5px 5px #b2ff9e;
+    color: #fafafa;
+    background-color: #4db870;
+    box-shadow: 0 5px 15px #193a24;
 }
