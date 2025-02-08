@@ -17,7 +17,7 @@ app = FastAPI()
 # Add CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://127.0.0.1:5500"],  # Allow requests from Live Server
+    allow_origins=["http://localhost:5500"],  # Allow requests from Live Server
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -37,10 +37,6 @@ SPOTIFY_API_BASE_URL = "https://api.spotify.com/v1"
 SCOPE = "user-read-recently-played playlist-modify-public user-top-read"
 
 
-
-@app.get("/")
-async def home():
-    return {"message": "Welcome to Spotify Community!"}
 
 @app.get("/")
 async def serve_frontend():
@@ -71,15 +67,9 @@ async def callback(code: str):
         print(response.text)  # Log the response for debugging
         if response.status_code != 200:
             raise HTTPException(status_code=400, detail="Failed to fetch access token")
+
         token_data = response.json()
-        access_token = token_data["access_token"]
-        refresh_token = token_data.get("refresh_token")
-        redirect_url = "http://127.0.0.1:5500/frontend/static/home.html"
-        return RedirectResponse(
-            url=f"http://localhost:5500/static/home.html"
-                f"?access_token={token_data['access_token']}"
-                f"&refresh_token={token_data.get('refresh_token', '')}"
-        )
+        return JSONResponse(content=token_data)
 
 @app.post("/refresh-token")
 async def refresh_token(refresh_token: str):
