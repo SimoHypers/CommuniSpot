@@ -24,6 +24,8 @@ app.add_middleware(
 )
 
 app.mount("/static", StaticFiles(directory="../frontend/static", html=True), name="static")
+app.mount("/styles", StaticFiles(directory="../frontend/styles"), name="styles")
+app.mount("/assets", StaticFiles(directory="../frontend/assets"), name="assets")
 
 CLIENT_ID = os.getenv("CLIENT_ID")
 CLIENT_SECRET = os.getenv("CLIENT_SECRET")

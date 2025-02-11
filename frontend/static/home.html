@@ -4,32 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CommuniSpot Home</title>
-    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/home.css">
 </head>
 <body>
-    <header class="header">
-        <div class="logo">
-            <a href="/">
-                <img src="/frontend/assets/logo/logo.svg" alt="CommuniSpot Logo">
-            </a>
+    <div class="container">
+        <div class="Header">
+            <div class="logo">
+                <a href="http://localhost:8000/static/home.html">
+                    <p>CommuniSpot</p>
+                </a>
+            </div>
+            <div class="artists">
+                <a href="http://localhost:8000/artists">
+                    <button class="header_buttons">Artists</button>
+                </a>
+            </div>
+            <div class="tracks">
+                <a href="http://localhost:8000/tracks">
+                    <button class="header_buttons">Tracks</button>
+                </a>
+            </div>
+
+            <div class="profile">
+                <button class="profile_button">
+                    <img src="../assets/images/fern.png">
+                </button>
+            </div>
         </div>
-        <nav>
-            <ul>
-                <li><a href="/profile">Profile</a></li>
-                <li><a href="/settings">Settings</a></li>
-                <li><a href="/logout">Logout</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <h1>Welcome to CommuniSpot!</h1>
-        <p>Your personalized music community experience starts here.</p>
-        
-    </main>
 
-    <footer class="footer">
-        <p>&copy; Thanks for visiting</p>
-    </footer>
+        <div class="Sidebar"><!--Friends list-->
+            <button class="sidebar_hide_button">
+                <img src="../assets/icons/Arrow.svg">
+            </button>
+            <p>Friends List</p>
+            <!--Add an unordered list-->
+        </div>
+        <div class="Content">
+            <p></p>
+        </div>
+        <div class="Footer">Footer</div>
+    </div>
+
+    <script src="../scripts/app.js"></script>
 </body>
 </html>
